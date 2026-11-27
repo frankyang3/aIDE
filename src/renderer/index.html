@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src aide-preview: http: https:">
+  <title>aIDE</title>
+  <link rel="stylesheet" href="../../node_modules/@xterm/xterm/css/xterm.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="main-window">
+  <div id="app">
+    <aside id="sidebar">
+      <div class="titlebar-gap drag"></div>
+
+      <div id="sessions-pane">
+        <section>
+          <header class="section-head">
+            <h2>Agents</h2>
+            <button type="button" class="icon-btn" id="new-group" title="New group" aria-label="New group"></button>
+            <button type="button" class="icon-btn" id="new-agent" title="New agent (⌘N)" aria-label="New agent"></button>
+          </header>
+          <div class="list" id="agents"></div>
+        </section>
+        <section>
+          <header class="section-head">
+            <h2>Processes</h2>
+            <button type="button" class="icon-btn" id="new-process" title="New process or shell (⌘T)" aria-label="New process or shell"></button>
+          </header>
+          <div class="list" id="processes"></div>
+        </section>
+      </div>
+
+      <div class="splitter horizontal" id="split-side" role="separator" aria-orientation="horizontal"></div>
+
+      <div id="side-bottom">
+        <div class="tabs" role="tablist">
+          <button type="button" role="tab" data-tab="servers">Servers <span class="count" id="servers-count"></span></button>
+          <button type="button" role="tab" data-tab="files">Files</button>
+          <button type="button" role="tab" data-tab="git">Git</button>
+        </div>
+        <div class="tab-body" id="servers" role="tabpanel"></div>
+        <div class="tab-body" id="files" role="tabpanel" hidden>
+          <div class="tree-root" id="tree-root"></div>
+          <div class="tree" id="tree"></div>
+        </div>
+        <div class="tab-body" id="git" role="tabpanel" hidden></div>
+      </div>
+    </aside>
+
+    <div class="splitter vertical" id="split-sidebar" role="separator" aria-orientation="vertical"></div>
+
+    <main id="main">
+      <header id="main-head" class="drag">
+        <span class="status" id="head-status"></span>
+        <div class="head-text">
+          <div class="head-name no-drag" id="head-name" title="Double-click to rename"></div>
+          <div class="head-sub" id="head-sub"></div>
+        </div>
+        <div class="head-meta no-drag" id="head-meta"></div>
+        <div class="head-actions no-drag" id="head-actions"></div>
+      </header>
+
+      <div id="workspace">
+        <div id="terminals">
+          <div class="overlay" id="overlay" hidden></div>
+          <div class="exit-bar" id="exit-bar" hidden></div>
+        </div>
+
+        <div class="splitter vertical" id="split-file" role="separator" aria-orientation="vertical" hidden></div>
+
+        <section id="file-panel" hidden>
+          <header class="file-head">
+            <span class="icon-slot" id="file-icon"></span>
+            <div class="file-title">
+              <div class="file-name" id="file-name"></div>
+              <div class="file-path" id="file-path"></div>
+            </div>
+            <span class="file-state" id="file-state"></span>
+            <div class="file-actions" id="file-actions"></div>
+            <button type="button" class="text-btn" id="file-save" hidden>Save</button>
+            <button type="button" class="icon-btn" id="file-close" title="Close file" aria-label="Close file"></button>
+          </header>
+          <div class="file-notice" id="file-notice" hidden></div>
+          <div class="file-body" id="file-body"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <dialog id="new-dialog">
+    <form id="new-form" novalidate>
+      <h2 id="new-title">New agent</h2>
+      <label class="field" id="field-command">
+        <span>Command</span>
+        <input name="command" type="text" spellcheck="false" autocomplete="off" placeholder="npm run dev">
+        <small>Leave empty for an interactive shell.</small>
+      </label>
+      <label class="field">
+        <span>Folder</span>
+        <div class="input-row">
+          <input name="cwd" type="text" spellcheck="false" autocomplete="off">
+          <button type="button" class="text-btn" id="new-browse">Browse…</button>
+        </div>
+      </label>
+      <div class="chips" id="new-recent"></div>
+      <label class="field">
+        <span>Name <em>optional</em></span>
+        <input name="name" type="text" spellcheck="false" autocomplete="off" placeholder="You can rename it any time">
+      </label>
+      <label class="field" id="field-args">
+        <span>Claude Code arguments <em>optional</em></span>
+        <input name="extraArgs" type="text" spellcheck="false" autocomplete="off" placeholder="--model opus --permission-mode plan">
+      </label>
+      <p class="form-error" id="new-error" hidden></p>
+      <footer>
+        <button type="button" class="text-btn" id="new-cancel">Cancel</button>
+        <button type="submit" class="text-btn primary" id="new-submit">Start</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

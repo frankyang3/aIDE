@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- aIDE: a bird on a aide, in the app's own colours. Rendered to icon.icns for the Desktop shortcut. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#30333b"/>
+      <stop offset="1" stop-color="#15161a"/>
+    </linearGradient>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="186" fill="url(#bg)"/>
+  <rect x="103" y="103" width="818" height="818" rx="183" fill="none" stroke="#3a3d46" stroke-width="6"/>
+  <polygon points="372,470 232,392 276,548" fill="#b85f43"/>
+  <ellipse cx="492" cy="506" rx="176" ry="142" fill="#d97757"/>
+  <circle cx="618" cy="398" r="100" fill="#d97757"/>
+  <ellipse cx="462" cy="520" rx="100" ry="72" fill="#b85f43"/>
+  <polygon points="706,372 796,404 704,440" fill="#e2a93b"/>
+  <circle cx="644" cy="380" r="17" fill="#15161a"/>
+  <path d="M452 640v40M532 640v40" stroke="#8d909b" stroke-width="16" stroke-linecap="round"/>
+  <rect x="226" y="672" width="572" height="44" rx="22" fill="#adb0ba"/>
+</svg>

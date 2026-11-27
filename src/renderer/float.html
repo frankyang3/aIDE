@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
+  <title>aIDE</title>
+  <link rel="stylesheet" href="../../node_modules/@xterm/xterm/css/xterm.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="float-window">
+  <header id="float-bar" class="drag">
+    <span class="status" id="float-status"></span>
+    <div class="float-name no-drag" id="float-name" title="Double-click to rename"></div>
+    <div class="float-sub" id="float-sub"></div>
+    <div class="quick no-drag" id="quick">
+      <input id="quick-input" type="text" autocomplete="off" spellcheck="false" aria-label="Send a line to this session">
+      <button type="button" class="quick-note" id="quick-note" title="Expand" hidden></button>
+    </div>
+    <div class="float-actions no-drag" id="float-actions"></div>
+  </header>
+  <div id="float-term" class="term-host"></div>
+  <div class="exit-bar" id="exit-bar" hidden></div>
+  <script type="module" src="js/float.js"></script>
+</body>
+</html>
