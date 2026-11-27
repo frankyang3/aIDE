@@ -38,6 +38,10 @@ let activeId = null; // session shown in the main window
 let quitting = false;
 
 const FLOAT_MIN = { width: 280, height: 140 };
+// No limit, in effect: bigger than any screen. A maximum of 0 x 0 means "none" to
+// Electron, but on macOS it never reaches the window, which would go on holding a
+// hand-resize to the bar's height after the bar was expanded.
+const FLOAT_MAX = { width: 10000, height: 10000 };
 // A minimized floating window: one row. float.js treats any window this short as minimized.
 const MINI = { width: 340, height: 40, minWidth: 220, maxWidth: 900 };
 /** Minimized floating windows -> the size to give them back. */
@@ -277,7 +281,7 @@ function setFloatMini(win, mini) {
   const area = screen.getDisplayMatching(b).workArea;
   const width = Math.min(full.width, area.width);
   const height = Math.min(full.height, area.height);
-  win.setMaximumSize(0, 0); // no limit
+  win.setMaximumSize(FLOAT_MAX.width, FLOAT_MAX.height);
   win.setBounds({
     x: clamp(right - width, area.x, area.x + area.width - width),
     y: clamp(b.y, area.y, area.y + area.height - height),
@@ -294,7 +298,7 @@ function setFloatTiny(win, on) {
   const right = b.x + b.width;
   // The old limits would clamp the new size, so lift them for the move.
   win.setMinimumSize(0, 0);
-  win.setMaximumSize(0, 0);
+  win.setMaximumSize(FLOAT_MAX.width, FLOAT_MAX.height);
   if (on) {
     tiny.add(win);
     win.setBounds({ x: right - TINY.width, y: b.y, width: TINY.width, height: TINY.height });

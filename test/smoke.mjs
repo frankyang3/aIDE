@@ -346,6 +346,9 @@ try {
   await floatPage.click('#float-actions [title^="Expand"]');
   await floatPage.waitForFunction(() => !window.__aide.mini);
   check('expanding puts the window back where it was', JSON.stringify(await floatBounds()) === JSON.stringify(fullBounds), JSON.stringify(await floatBounds()));
+  const limit = await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows().find((x) => x.webContents.getURL().includes('float.html')).getMaximumSize());
+  // A limit of 0 x 0 reads as none here, but macOS goes on holding a resize by hand to the bar's.
+  check('and it can be made taller by hand again, not only wider', limit[0] >= fullBounds.width && limit[1] >= fullBounds.height, JSON.stringify(limit));
   await floatPage.waitForTimeout(300); // past the terminal's fit debounce
   check('the terminal is the size it was', (await floatPage.evaluate(() => window.__aide.view.term.cols)) === floatCols);
   check('and has the keyboard again', await floatPage.evaluate(() => document.activeElement?.classList.contains('xterm-helper-textarea')));
